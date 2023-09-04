@@ -1,4 +1,4 @@
- {
+{
 	"info": {
 		"_postman_id": "a451ed92-9855-457b-a896-cf978fb61e44",
 		"name": "CI/CD",
@@ -184,7 +184,7 @@
 			"id": "ad3973d3-d82a-4c71-93fd-27d8bfcc8a31"
 		},
 		{
-			"name": "Settings Copy",
+			"name": "Settings",
 			"item": [
 				{
 					"name": "Location",
@@ -10163,6 +10163,265 @@
 			]
 		},
 		{
+			"name": "reportsnew Copy 2",
+			"item": [
+				{
+					"name": "Tables",
+					"id": "a205d9c3-c234-4126-b6f8-83efcc961ba0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": ""
+					},
+					"response": []
+				},
+				{
+					"name": "reportlist",
+					"id": "9b8ace77-65dd-4654-a055-206300f01a88",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": ""
+					},
+					"response": []
+				},
+				{
+					"name": "CreateReport",
+					"id": "020ae3e8-ae60-4b67-8eff-9688b0aec301",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1hbGF0aGFAYWdpbGVjeWJlci5jb20iLCJ1c2VyX2lkIjozMTMsInN1YnNjcmliZXJfaWQiOjEsImNyZWRlbnRpYWxzIjoidDNueXBUWFNwWXF1VnBlMEduQzZKVHhrOXRTcUh1MjBISUhwZW1tMkVjdUJWT3h2MElER0lOSk9oS0o3YXgyOWJ6TGZ1TndZbWZDRFRZQ05XT21vbUI4RGtDMEc1UUNwTTlBVUNkanNrWGQyQkhvaXBqeE5CeTNZNHFYQ1VHRWpsUUVTV3NQd1hwMUN2MldBWitlRFczUkJQNlpiTXlYckF3cXh4UTFnYVcwPSIsImV4cCI6MTY4Nzk0ODEyOH0.oLP52ORQdzjXS_2B2S-4TdkceDC1Nc9Xsd0Ql2aRNto"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"name\": \"Report 23\",\r\n    \"title\":\"Report\",\r\n    \"source_data\": 1,\r\n    \"start_date\": \"2023-06-24\",\r\n    \"end_date\": \"2023-06-30\",\r\n    \"output_type\": \"reports\",\r\n    \"content_json\": \"{\\\"key\\\": \\\"value\\\"}\"\r\n  },\r\n  {\r\n    \"name\": \"Report 24\",\r\n    \"source_data\": 1,\r\n    \"start_date\": \"2023-06-24\",\r\n    \"end_date\": \"2023-06-30\",\r\n    \"output_type\": \"charts\",\r\n    \"content_json\": \"{\\\"key\\\": \\\"value\\\"}\"\r\n  },\r\n  {\r\n    \"name\": \"Report 3\",\r\n    \"source_data\": 1,\r\n    \"start_date\": \"2023-06-24\",\r\n    \"end_date\": \"2023-06-30\",\r\n    \"output_type\": \"reports\",\r\n    \"content_json\": \"{\\\"key\\\": \\\"value\\\"}\"\r\n  }\r\n]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}reportbuilder/reports"
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateReport",
+					"id": "e9bfadd1-8e42-4708-a3b2-93dd6521b9a7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1hbGF0aGFAYWdpbGVjeWJlci5jb20iLCJ1c2VyX2lkIjozMTMsInN1YnNjcmliZXJfaWQiOjEsImNyZWRlbnRpYWxzIjoiZDd0ZEREbkUzSHUzc1AxeGFZYnVGSUhTNmUyaWRmU1c4MWNBejluYnBjU1BJYXhFbEVYamphMWVORVRHOEFlODNNc0dRejd6ZUF3cFhCTTF1STNkcmZlMlZhSkNVeitaVi9PVGVWWGlJL01YeEo0MUFIbWZNdG40cklvZ05XcGxXbXFpaTdKMmlZNVN2bmRNQ05VNW5nPT0iLCJleHAiOjE2ODc1MDMzODZ9.kEt-WHXZoQ4caWINXQLkHtww2IYy8uzI6PzKlvSXzOg"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"id\":4,\r\n    \"name\": \"Report 88\",\r\n    \"source_data\": \"Source Data 1\",\r\n    \"start_date\": \"2023-06-24\",\r\n    \"end_date\": \"2023-06-30\",\r\n    \"output_type\": \"PDF\",\r\n    \"content_json\": \"{\\\"key\\\": \\\"value\\\"}\"\r\n  }\r\n]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}reportbuilder/reports"
+					},
+					"response": []
+				},
+				{
+					"name": "ListReport",
+					"id": "6f551574-9a28-4bf6-a0c7-3516b4159abc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}reportbuilder/reports"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteReport",
+					"id": "03a91fa0-9b14-4471-b282-0f3c51f98596",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1hbGF0aGFAYWdpbGVjeWJlci5jb20iLCJ1c2VyX2lkIjozMTMsInN1YnNjcmliZXJfaWQiOjEsImNyZWRlbnRpYWxzIjoiZDd0ZEREbkUzSHUzc1AxeGFZYnVGSUhTNmUyaWRmU1c4MWNBejluYnBjU1BJYXhFbEVYamphMWVORVRHOEFlODNNc0dRejd6ZUF3cFhCTTF1STNkcmZlMlZhSkNVeitaVi9PVGVWWGlJL01YeEo0MUFIbWZNdG40cklvZ05XcGxXbXFpaTdKMmlZNVN2bmRNQ05VNW5nPT0iLCJleHAiOjE2ODc1MDMzODZ9.kEt-WHXZoQ4caWINXQLkHtww2IYy8uzI6PzKlvSXzOg"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n        8,\r\n        7\r\n    ]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}reportbuilder/reports"
+					},
+					"response": []
+				},
+				{
+					"name": "View Report",
+					"id": "d2df2b5e-8d1b-4f06-a603-cf11e744bdb4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}reportbuilder/reports/1"
+					},
+					"response": []
+				}
+			],
+			"id": "a1bce819-1e1a-44a5-81ca-1ab41c13dcd9"
+		},
+		{
+			"name": "PageBuilder Copy 2",
+			"item": [
+				{
+					"name": "Create New Page",
+					"id": "879fdc2b-2f26-4948-aa71-c1c983a628de",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1hbGF0aGFAYWdpbGVjeWJlci5jb20iLCJ1c2VyX2lkIjozMTMsInN1YnNjcmliZXJfaWQiOjEsImNyZWRlbnRpYWxzIjoiUk4yTUJ4S0xtNUhOYTdKTnpJd0o2TWI5ZGNEKzdtTlNKMjd5U1RvN2RrcXVLa2JpblUvNGI3M3VYRzdmSXh3d3c2OFgvUmJEZ0pya254SnJlMy9xUmtxRzBnZklxck5uMnN2Y0tIQWpjT1RYMS9ZZWVwRHZPYzVIL0UxQXZSSHlxdFFZWW9hU2VXelE5eUhvcXQwaDlRPT0iLCJleHAiOjE2ODg3MDM3NDh9.o0YDj0C9kg2Ii8rzVCe0CJ7C7lbPYxuz49etjIgEhrA"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"name\": \"Page 1\",\r\n        \"title\": \"page\",\r\n        \"module_id\": 5,\r\n        \"content\": \"{\\\"key\\\": \\\"value\\\"}\"\r\n    },\r\n    {\r\n        \"name\": \"Page 2\",\r\n        \"title\": \"page\",\r\n        \"module_id\": 5,\r\n        \"content\": \"{\\\"key\\\": \\\"value\\\"}\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}pagebuilder/pages_submit"
+					},
+					"response": []
+				},
+				{
+					"name": "List all pages",
+					"id": "6e4c239c-76fe-429f-973d-ee377f2e2833",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}pagebuilder/pages_list"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Pages",
+					"id": "6faef083-19de-4e3e-a372-e22265636978",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n[\r\n    \r\n    {\r\n            \"id\": 8,\r\n            \"name\": \"Page 5\",\r\n            \"title\": \"page\",\r\n            \"content\": \"{}\",\r\n            \"module_id\": 6\r\n            \r\n        }\r\n]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}pagebuilder/pages_submit"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete pages",
+					"id": "5001bb19-c654-41ae-8330-88b186254cff",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"page_ids\":[1002]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}pagebuilder/pages_submit"
+					},
+					"response": []
+				},
+				{
+					"name": "List all modules",
+					"id": "886d200d-cbc4-4531-b78d-6708ff93f607",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}pagebuilder/modules_list"
+					},
+					"response": []
+				},
+				{
+					"name": "viewpages",
+					"id": "9d7665cc-4b26-4716-93aa-906314e60540",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}pagebuilder/pages_list/1"
+					},
+					"response": []
+				}
+			],
+			"id": "73388ff2-0a32-4749-a078-522ca7888deb"
+		},
+		{
 			"name": "DashboardReport Copy 2",
 			"item": [
 				{
@@ -10572,148 +10831,6 @@
 				}
 			],
 			"id": "dec475d9-81cb-4dd9-9a29-93ad604dbccd"
-		},
-		{
-			"name": "reportsnew Copy 2",
-			"item": [
-				{
-					"name": "Tables",
-					"id": "a205d9c3-c234-4126-b6f8-83efcc961ba0",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": ""
-					},
-					"response": []
-				},
-				{
-					"name": "reportlist",
-					"id": "9b8ace77-65dd-4654-a055-206300f01a88",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": ""
-					},
-					"response": []
-				},
-				{
-					"name": "CreateReport",
-					"id": "020ae3e8-ae60-4b67-8eff-9688b0aec301",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1hbGF0aGFAYWdpbGVjeWJlci5jb20iLCJ1c2VyX2lkIjozMTMsInN1YnNjcmliZXJfaWQiOjEsImNyZWRlbnRpYWxzIjoidDNueXBUWFNwWXF1VnBlMEduQzZKVHhrOXRTcUh1MjBISUhwZW1tMkVjdUJWT3h2MElER0lOSk9oS0o3YXgyOWJ6TGZ1TndZbWZDRFRZQ05XT21vbUI4RGtDMEc1UUNwTTlBVUNkanNrWGQyQkhvaXBqeE5CeTNZNHFYQ1VHRWpsUUVTV3NQd1hwMUN2MldBWitlRFczUkJQNlpiTXlYckF3cXh4UTFnYVcwPSIsImV4cCI6MTY4Nzk0ODEyOH0.oLP52ORQdzjXS_2B2S-4TdkceDC1Nc9Xsd0Ql2aRNto"
-							}
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\r\n  {\r\n    \"name\": \"Report 23\",\r\n    \"title\":\"Report\",\r\n    \"source_data\": 1,\r\n    \"start_date\": \"2023-06-24\",\r\n    \"end_date\": \"2023-06-30\",\r\n    \"output_type\": \"reports\",\r\n    \"content_json\": \"{\\\"key\\\": \\\"value\\\"}\"\r\n  },\r\n  {\r\n    \"name\": \"Report 24\",\r\n    \"source_data\": 1,\r\n    \"start_date\": \"2023-06-24\",\r\n    \"end_date\": \"2023-06-30\",\r\n    \"output_type\": \"charts\",\r\n    \"content_json\": \"{\\\"key\\\": \\\"value\\\"}\"\r\n  },\r\n  {\r\n    \"name\": \"Report 3\",\r\n    \"source_data\": 1,\r\n    \"start_date\": \"2023-06-24\",\r\n    \"end_date\": \"2023-06-30\",\r\n    \"output_type\": \"reports\",\r\n    \"content_json\": \"{\\\"key\\\": \\\"value\\\"}\"\r\n  }\r\n]\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{url}}reportbuilder/reports"
-					},
-					"response": []
-				},
-				{
-					"name": "UpdateReport",
-					"id": "e9bfadd1-8e42-4708-a3b2-93dd6521b9a7",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1hbGF0aGFAYWdpbGVjeWJlci5jb20iLCJ1c2VyX2lkIjozMTMsInN1YnNjcmliZXJfaWQiOjEsImNyZWRlbnRpYWxzIjoiZDd0ZEREbkUzSHUzc1AxeGFZYnVGSUhTNmUyaWRmU1c4MWNBejluYnBjU1BJYXhFbEVYamphMWVORVRHOEFlODNNc0dRejd6ZUF3cFhCTTF1STNkcmZlMlZhSkNVeitaVi9PVGVWWGlJL01YeEo0MUFIbWZNdG40cklvZ05XcGxXbXFpaTdKMmlZNVN2bmRNQ05VNW5nPT0iLCJleHAiOjE2ODc1MDMzODZ9.kEt-WHXZoQ4caWINXQLkHtww2IYy8uzI6PzKlvSXzOg"
-							}
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\r\n  {\r\n    \"id\":4,\r\n    \"name\": \"Report 88\",\r\n    \"source_data\": \"Source Data 1\",\r\n    \"start_date\": \"2023-06-24\",\r\n    \"end_date\": \"2023-06-30\",\r\n    \"output_type\": \"PDF\",\r\n    \"content_json\": \"{\\\"key\\\": \\\"value\\\"}\"\r\n  }\r\n]\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{url}}reportbuilder/reports"
-					},
-					"response": []
-				},
-				{
-					"name": "ListReport",
-					"id": "6f551574-9a28-4bf6-a0c7-3516b4159abc",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "{{url}}reportbuilder/reports"
-					},
-					"response": []
-				},
-				{
-					"name": "DeleteReport",
-					"id": "03a91fa0-9b14-4471-b282-0f3c51f98596",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1hbGF0aGFAYWdpbGVjeWJlci5jb20iLCJ1c2VyX2lkIjozMTMsInN1YnNjcmliZXJfaWQiOjEsImNyZWRlbnRpYWxzIjoiZDd0ZEREbkUzSHUzc1AxeGFZYnVGSUhTNmUyaWRmU1c4MWNBejluYnBjU1BJYXhFbEVYamphMWVORVRHOEFlODNNc0dRejd6ZUF3cFhCTTF1STNkcmZlMlZhSkNVeitaVi9PVGVWWGlJL01YeEo0MUFIbWZNdG40cklvZ05XcGxXbXFpaTdKMmlZNVN2bmRNQ05VNW5nPT0iLCJleHAiOjE2ODc1MDMzODZ9.kEt-WHXZoQ4caWINXQLkHtww2IYy8uzI6PzKlvSXzOg"
-							}
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\r\n        8,\r\n        7\r\n    ]\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{url}}reportbuilder/reports"
-					},
-					"response": []
-				},
-				{
-					"name": "View Report",
-					"id": "d2df2b5e-8d1b-4f06-a603-cf11e744bdb4",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "{{url}}reportbuilder/reports/1"
-					},
-					"response": []
-				}
-			],
-			"id": "a1bce819-1e1a-44a5-81ca-1ab41c13dcd9"
 		}
 	]
 }
