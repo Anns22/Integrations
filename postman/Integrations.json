@@ -11538,7 +11538,35 @@
 					"response": []
 				}
 			],
-			"id": "84928da8-80bf-4c0d-9b66-23fce48ec927"
+			"id": "84928da8-80bf-4c0d-9b66-23fce48ec927",
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "{{refresh_token}}"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e4bd39f5-7036-405d-a9f2-f2ac24619301",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "43970def-6b0c-4a45-a5ea-69c082ad93d9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		},
 		{
 			"name": "FMT",
