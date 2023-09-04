@@ -10691,7 +10691,7 @@
 			"id": "dec475d9-81cb-4dd9-9a29-93ad604dbccd"
 		},
 		{
-			"name": "GAP report Copy",
+			"name": "GAP report",
 			"item": [
 				{
 					"name": "consumers",
@@ -11539,6 +11539,866 @@
 				}
 			],
 			"id": "84928da8-80bf-4c0d-9b66-23fce48ec927"
+		},
+		{
+			"name": "FMT",
+			"item": [
+				{
+					"name": "Parameter Builder",
+					"item": [
+						{
+							"name": "Table name list",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = JSON.parse(responseBody);\r",
+											"\r",
+											"// postman.setEnvironmentVariable(\"parameter_table_id\", data.data[0]['id']); \r",
+											"pm.globals.set(\"parameter_table_id\", data.data[0]['id']);\r",
+											"pm.globals.set(\"parameter_table_name\", data.data[0]['name']);\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"\r",
+											"pm.response.to.have.status(200);\r",
+											"\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"id": "4ffafbf1-d427-4028-a544-bc0c499f6ccb"
+									}
+								}
+							],
+							"id": "47384b51-060f-4441-bc14-b06bec652330",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://staging.sustainion.tech/api/dashboard/parameter_table/index?export=1",
+									"protocol": "https",
+									"host": [
+										"staging",
+										"sustainion",
+										"tech"
+									],
+									"path": [
+										"api",
+										"dashboard",
+										"parameter_table",
+										"index"
+									],
+									"query": [
+										{
+											"key": "export",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Table Field List",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = JSON.parse(responseBody);\r",
+											"\r",
+											"postman.setEnvironmentVariable(\"parameter_filter_field\", data.data[7]['COLUMN_NAME']); \r",
+											"pm.globals.set(\"parameter_filter_field\", data.data[5]['COLUMN_NAME']);\r",
+											"pm.globals.set(\"parameter_field\", data.data[25]['COLUMN_NAME']);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"\r",
+											"pm.response.to.have.status(200);\r",
+											"\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"id": "781deb09-2094-4399-bdbd-1747fc9ca1a3"
+									}
+								}
+							],
+							"id": "8ce98b0e-a473-4aac-a772-df41c755c7fd",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "https://staging.sustainion.tech/api/dashboard/parameter_table_field/{{parameter_table_id}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Filter field list",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Parse the JSON response\r",
+											"const responseJson = pm.response.json();\r",
+											"\r",
+											"// Check if the data array is empty\r",
+											"if (responseJson.data.length === 0) {\r",
+											"    // Set value 1 to the parameter_filter_field global variable\r",
+											"    pm.globals.set(\"parameter_filter_value\", 1);\r",
+											"} else {\r",
+											"    // Set the id of the first item to the parameter_filter_field global variable\r",
+											"    pm.globals.set(\"parameter_filter_value\", responseJson.data[0].id);\r",
+											"}\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"\r",
+											"pm.response.to.have.status(200);\r",
+											"\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"id": "9cc34c32-0da8-4146-af4f-3d58849cbc5d"
+									}
+								}
+							],
+							"id": "e0bbb0c0-1a41-410e-96f2-5781bbf76d16",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "https://staging.sustainion.tech/api/dashboard/referenced_table_field_list/{{parameter_table_id}}/{{parameter_filter_field}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Create parameter - Table Type",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Parameter Name\r",
+											"const randomName = \"table parameter_\" + Math.floor(Math.random() * 1000);\r",
+											"pm.variables.set(\"parameter_name\", randomName);\r",
+											"\r",
+											"pm.variables.set(\"field_function\", \"sum\");"
+										],
+										"type": "text/javascript",
+										"id": "84db4b5b-68f0-497e-bfb1-099fce0239ed"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"\r",
+											"pm.response.to.have.status(200);\r",
+											"\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"id": "5a297926-a715-40ff-8e70-2af5543d5eb4"
+									}
+								}
+							],
+							"id": "bb64a789-1d48-474f-a94d-21f6d41de925",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{parameter_name}}\",\r\n    \"type\": \"table\",\r\n    \"table_name\": \"{{parameter_table_name}}\",\r\n    \"field_name\": \"{{parameter_field}}\",\r\n    \"field_function\": \"{{field_function}}\",\r\n    \"field_groupby\": \"\",\r\n    \"filter_field\": \"{{parameter_filter_field}}\",\r\n    \"filter_condition\": \"=\",\r\n    \"filter_value\": \"{{parameter_filter_value}}\",\r\n    \"formula\": null,\r\n    \"table_id\": \"{{parameter_table_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "https://staging.sustainion.tech/api/dashboard/addreportparameter/"
+							},
+							"response": []
+						},
+						{
+							"name": "Parameter List",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Parse the JSON response\r",
+											"const responseJson = pm.response.json();\r",
+											"\r",
+											"pm.globals.set(\"parameter_id\", responseJson.data[0].id);\r",
+											"pm.globals.set(\"parameter_name\", responseJson.data[0].name);\r",
+											"\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"\r",
+											"pm.response.to.have.status(200);\r",
+											"\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"id": "02bcbb30-e3c2-43cd-b476-c4ada66808d0"
+									}
+								}
+							],
+							"id": "8365dac9-de75-4a91-a9ad-55be23699e53",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://staging.sustainion.tech/api/dashboard/reportparameter/?export=1&sortby=desc",
+									"protocol": "https",
+									"host": [
+										"staging",
+										"sustainion",
+										"tech"
+									],
+									"path": [
+										"api",
+										"dashboard",
+										"reportparameter",
+										""
+									],
+									"query": [
+										{
+											"key": "export",
+											"value": "1"
+										},
+										{
+											"key": "sortby",
+											"value": "desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Parameter Update-Table Type",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Parameter Name\r",
+											"const randomName = \"parameter_\" + Math.floor(Math.random() * 1000);\r",
+											"pm.variables.set(\"parameter_name\", randomName);\r",
+											"\r",
+											"pm.variables.set(\"field_function\", \"sum\");"
+										],
+										"type": "text/javascript",
+										"id": "4c0337c1-6f1c-4038-8836-ed71b08e863d"
+									}
+								}
+							],
+							"id": "c4866f3c-07c5-45ee-b55d-1de08944258a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{parameter_name}}\",\r\n    \"type\": \"table\",\r\n    \"table_name\": \"{{parameter_table_name}}\",\r\n    \"field_name\": \"{{parameter_field}}\",\r\n    \"field_function\": \"{{field_function}}\",\r\n    \"field_groupby\": \"\",\r\n    \"filter_field\": \"{{parameter_filter_field}}\",\r\n    \"filter_condition\": \"=\",\r\n    \"filter_value\": \"{{parameter_filter_value}}\",\r\n    \"formula\": null,\r\n    \"table_id\": \"{{parameter_table_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "https://staging.sustainion.tech/api/dashboard/edit-parameter/{{parameter_id}}"
+							},
+							"response": []
+						},
+						{
+							"name": "View Parameter",
+							"id": "de66f473-5e18-48c8-a8a9-44ff05d24260",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "https://staging.sustainion.tech/api/dashboard/view-parameter/{{parameter_id}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Create parameter -  Derived Type",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Parameter Name\r",
+											"const randomName = \"derived parameter_\" + Math.floor(Math.random() * 1000);\r",
+											"pm.variables.set(\"parameter_name\", randomName);"
+										],
+										"type": "text/javascript",
+										"id": "aeb1ed0f-a29b-4e9d-9f15-022adb06a762"
+									}
+								}
+							],
+							"id": "1f82c978-b509-4f7c-92d5-167af01ee5b8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{parameter_name}}\",\r\n    \"type\": \"derived\",\r\n    \"table_name\": null,\r\n    \"field_name\": null,\r\n    \"field_function\": null,\r\n    \"field_groupby\": null,\r\n    \"filter_field\": null,\r\n    \"filter_condition\": null,\r\n    \"filter_value\": null,\r\n    \"formula\": \"[{\\\"title\\\":\\\"(\\\",\\\"type\\\":\\\"openparenthesis\\\"},{\\\"id\\\":{{parameter_id}},\\\"title\\\":\\\"{{parameter_name}}\\\",\\\"type\\\":\\\"operand\\\"},{\\\"title\\\":\\\"*\\\",\\\"type\\\":\\\"operator\\\"},{\\\"title\\\":\\\"100\\\",\\\"type\\\":\\\"operand\\\"},{\\\"title\\\":\\\")\\\",\\\"type\\\":\\\"closeparenthesis\\\"}]\",\r\n    \"table_id\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "https://staging.sustainion.tech/api/dashboard/addreportparameter/"
+							},
+							"response": []
+						},
+						{
+							"name": "Create parameter -  input Type Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Parameter Name\r",
+											"const randomName = \"input parameter_\" + Math.floor(Math.random() * 1000);\r",
+											"pm.variables.set(\"parameter_name\", randomName);"
+										],
+										"type": "text/javascript",
+										"id": "81f7e157-66ec-43d3-a146-16b2cce8a88b"
+									}
+								}
+							],
+							"id": "b5277a9f-ba09-46f6-8ad4-2f42d0ef5bb8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{parameter_name}}\",\r\n    \"type\": \"input\",\r\n    \"table_name\": null,\r\n    \"field_name\": null,\r\n    \"field_function\": null,\r\n    \"field_groupby\": null,\r\n    \"filter_field\": null,\r\n    \"filter_condition\": null,\r\n    \"filter_value\": null,\r\n    \"formula\": null,\r\n    \"table_id\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "https://staging.sustainion.tech/api/dashboard/addreportparameter/"
+							},
+							"response": []
+						}
+					],
+					"id": "9452c96c-f4c0-4616-a1c1-c06f5c70369e"
+				},
+				{
+					"name": "Frame work Builder",
+					"item": [
+						{
+							"name": "Unit List",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = JSON.parse(responseBody);\r",
+											" \r",
+											"pm.globals.set(\"unit_id\", data.data[0]['id']);\r",
+											"pm.globals.set(\"unit_name\", data.data[0]['name']);\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"\r",
+											"pm.response.to.have.status(200);\r",
+											"\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"id": "8208d0e1-1bea-4d49-b21c-7374f25ea21b"
+									}
+								}
+							],
+							"id": "85a436ed-e841-4fe0-ae49-8147131d907b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "https://staging.sustainion.tech/api/admin/list/units"
+							},
+							"response": []
+						},
+						{
+							"name": "location list",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = JSON.parse(responseBody);\r",
+											" \r",
+											"pm.globals.set(\"location_id\", data.data[0]['id']);\r",
+											"pm.globals.set(\"location_name\", data.data[0]['name']);\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"\r",
+											"pm.response.to.have.status(200);\r",
+											"\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"id": "16012c08-898f-4b8a-968f-494dfe9352d5"
+									}
+								}
+							],
+							"id": "a886c51b-aeac-436a-8559-fc8b01a0c7bb",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "https://staging.sustainion.tech/api/dashboard/location-list/"
+							},
+							"response": []
+						},
+						{
+							"name": "Create report",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// report Name\r",
+											"const randomName = \"Report_\" + Math.floor(Math.random() * 1000);\r",
+											"pm.variables.set(\"report_name\", randomName);\r",
+											"\r",
+											"const current_year = new Date().getFullYear();\r",
+											"const previous_year = current_year - 1;\r",
+											"\r",
+											"pm.variables.set(\"current_year\", current_year);\r",
+											"pm.variables.set(\"previous_year\", previous_year);\r",
+											""
+										],
+										"type": "text/javascript",
+										"id": "b174798e-cd02-4151-8ac7-1ea0569d0855"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = JSON.parse(responseBody);\r",
+											" \r",
+											"pm.globals.set(\"report_id\", data.data['id']);\r",
+											"pm.globals.set(\"report_name\", data.data['reportname']);\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"\r",
+											"pm.response.to.have.status(200);\r",
+											"\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"id": "2de3df04-46dd-4334-aa9a-e940364cc240"
+									}
+								}
+							],
+							"id": "ea27eb4f-2044-4753-b112-2fd102969b33",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"reportname\": \"{{report_name}}\",\r\n    \"reportyear1\": \"{{current_year}}\",\r\n    \"reportyear2\": \"{{previous_year}}\",\r\n    \"report_location_id\": \"{{location_id}}\",\r\n    \"reportsection\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "https://staging.sustainion.tech/api/dashboard/addreport/"
+							},
+							"response": []
+						},
+						{
+							"name": "Update report Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.variables.set(\"report_format\", \"numberwithpercentage\");\r",
+											"\r",
+											"pm.variables.set(\"section_topic_name\", \"environment\");\r",
+											"\r",
+											"pm.variables.set(\"sectionname\", \"environment\");\r",
+											"\r",
+											"const current_year = new Date().getFullYear();\r",
+											"const previous_year = current_year - 1;\r",
+											"\r",
+											"pm.variables.set(\"current_year\", current_year);\r",
+											"pm.variables.set(\"previous_year\", previous_year);"
+										],
+										"type": "text/javascript",
+										"id": "4de5135a-b916-4440-849a-b24f4b0ea9ec"
+									}
+								}
+							],
+							"id": "6e8560ae-1f8b-48a0-82f3-0e78d59aead8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"reportname\": \"{{report_name}}\",\r\n    \"reportyear1\": \"{{current_year}}\",\r\n    \"reportyear2\": \"{{previous_year}}\",\r\n    \"report_location_id\": {{location_id}},\r\n    \"reportsection\": [\r\n        {\r\n            \"document\":\"{{file_path}}\",\r\n            \"document_name\":\"{{file_name}}\",\r\n            \"format\": \"{{report_format}}\",\r\n            \"parameter_id\": \"{{parameter_id}}\",\r\n            \"parameter_name\": \"{{parameter_name}}\",\r\n            \"remark\": \"\",\r\n            \"section_topic_name\": \"{{section_topic_name}}\",\r\n            \"sectionname\": \"{{sectionname}}\",\r\n            \"sort_order\": 1,\r\n            \"unit_id\": \"{{unit_id}}\"\r\n        }\r\n    ],\r\n    \"report_location_name\": \"{{location_name}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "https://staging.sustainion.tech/api/dashboard/update-report/{{report_id}}"
+							},
+							"response": []
+						},
+						{
+							"name": "view report",
+							"id": "4d591629-7215-4622-aac9-5046fe5a3311",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "https://staging.sustainion.tech/api/dashboard/view-report/{{report_id}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Report list",
+							"id": "06d8d729-2582-4399-a90f-2ad705248c85",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://staging.sustainion.tech/api/dashboard/report-data-list/?export=1&sortby=desc",
+									"protocol": "https",
+									"host": [
+										"staging",
+										"sustainion",
+										"tech"
+									],
+									"path": [
+										"api",
+										"dashboard",
+										"report-data-list",
+										""
+									],
+									"query": [
+										{
+											"key": "export",
+											"value": "1"
+										},
+										{
+											"key": "sortby",
+											"value": "desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Report View",
+							"id": "d7856f9b-46bc-4299-9846-1a6c4d257982",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://staging.sustainion.tech/api/dashboard/reportparameter/?export=1&sortby=asc&is_formula=1",
+									"protocol": "https",
+									"host": [
+										"staging",
+										"sustainion",
+										"tech"
+									],
+									"path": [
+										"api",
+										"dashboard",
+										"reportparameter",
+										""
+									],
+									"query": [
+										{
+											"key": "export",
+											"value": "1"
+										},
+										{
+											"key": "sortby",
+											"value": "asc"
+										},
+										{
+											"key": "is_formula",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remark update - client Admin",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const current_year = new Date().getFullYear();\r",
+											"const previous_year = current_year - 1;\r",
+											"\r",
+											"pm.variables.set(\"current_year\", current_year);\r",
+											"pm.variables.set(\"previous_year\", previous_year);\r",
+											"\r",
+											"\r",
+											"pm.variables.set(\"report_format\", \"numberwithpercentage\");\r",
+											"\r",
+											"pm.variables.set(\"section_topic_name\", \"environment\");\r",
+											"\r",
+											"pm.variables.set(\"sectionname\", \"environment\");"
+										],
+										"type": "text/javascript",
+										"id": "227da249-b914-49f3-ad9d-70d08948cd90"
+									}
+								}
+							],
+							"id": "5eebe198-c1a7-4ae8-ae22-65636bad303a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"reportname\": \"{{report_name}}\",\r\n    \"reportyear1\": \"{{current_year}}\",\r\n    \"reportyear2\": \"{{previous_year}}\",\r\n    \"report_location_id\": \"{{location_id}}\",\r\n    \"reportsection\": [\r\n        {\r\n            \"sectionname\": \"{{sectionname}}\",\r\n            \"section_data\": [\r\n                {\r\n                    \"section_topic_name\": \"{{section_topic_name}}\",\r\n                    \"section_topic_data\": [\r\n                        {\r\n                            \"parameter_id\": \"{{parameter_id}}\",\r\n                            \"parameter_name\": \"{{parameter_name}}\",\r\n                            \"unit_id\": \"{{unit_id}}\",\r\n                            \"unit_name\": \"{{unit_name}}\",\r\n                            \"type\": \"table\",\r\n                            \"format\": \"{{report_format}}\",\r\n                            \"remark\": \"test\",\r\n                            \"year1\": null,\r\n                            \"year2\": null,\r\n                            \"sort_order\": 1,\r\n                            \"document\": \"\"\r\n                        }\r\n                    ]\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "https://staging.sustainion.tech/api/dashboard/update-view-report/{{report_id}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Upload document-Client Admin",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.variables.set(\"report_format\", \"numberwithpercentage\");\r",
+											"\r",
+											"pm.variables.set(\"section_topic_name\", \"environment\");\r",
+											"\r",
+											"pm.variables.set(\"sectionname\", \"environment\");\r",
+											"\r",
+											"const current_year = new Date().getFullYear();\r",
+											"const previous_year = current_year - 1;\r",
+											"\r",
+											"pm.variables.set(\"current_year\", current_year);\r",
+											"pm.variables.set(\"previous_year\", previous_year);"
+										],
+										"type": "text/javascript",
+										"id": "582f04ff-5b4f-4888-9586-b2ff1f2454c1"
+									}
+								}
+							],
+							"id": "93ac98e4-381d-4020-a1ac-48f17aa0c328",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"reportname\": \"{{report_name}}\",\r\n    \"reportyear1\": \"{{current_year}}\",\r\n    \"reportyear2\": \"{{previous_year}}\",\r\n    \"report_location_id\": {{location_id}},\r\n    \"reportsection\": [\r\n        {\r\n            \"document\": \"\",\r\n            \"format\": \"{{report_format}}\",\r\n            \"parameter_id\": \"{{parameter_id}}\",\r\n            \"parameter_name\": \"{{parameter_name}}\",\r\n            \"remark\": \"\",\r\n            \"section_topic_name\": \"{{section_topic_name}}\",\r\n            \"sectionname\": \"{{sectionname}}\",\r\n            \"sort_order\": 1,\r\n            \"unit_id\": \"{{unit_id}}\"\r\n        }\r\n    ],\r\n    \"report_location_name\": \"{{location_name}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "https://staging.sustainion.tech/api/dashboard/update-report/{{report_id}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Report-client Admin",
+							"id": "98d71f4a-084c-4547-b5cd-74e4b5f6b47e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "https://staging.sustainion.tech/api/dashboard/get-report/{{report_id}}"
+							},
+							"response": []
+						}
+					],
+					"id": "f645d499-f739-428b-96e6-8aef6398f073"
+				},
+				{
+					"name": "Parameter Delete",
+					"item": [
+						{
+							"name": "Delete Parameter",
+							"id": "b0b546f9-341f-4516-ad38-b97f328de0f5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "https://staging.sustainion.tech/api/dashboard/delete-parameter/{{parameter_id}}"
+							},
+							"response": []
+						}
+					],
+					"id": "561cbc3a-e6a9-4dc9-96f5-dcbef5b8cc1e"
+				},
+				{
+					"name": "Frame work Builder Delete",
+					"item": [
+						{
+							"name": "delete framework builder",
+							"id": "b201a36e-d9d8-4f97-91a0-a89bd9b30f5c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "https://staging.sustainion.tech/api/dashboard/delete-report/{{report_id}}"
+							},
+							"response": []
+						}
+					],
+					"id": "2c02768d-da35-4c7e-a99b-4cd7617f157b"
+				},
+				{
+					"name": "File Upload",
+					"item": [
+						{
+							"name": "File Upload",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"id": "52a1840e-a7e5-431e-9cf0-0e48c221ad6a"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = JSON.parse(responseBody);\r",
+											" \r",
+											"pm.globals.set(\"file_label\", data.data['files'][0]['label']);\r",
+											"pm.globals.set(\"file_name\", data.data['files'][0]['filename']);\r",
+											"pm.globals.set(\"file_path\", data.data['files'][0]['path']);\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"\r",
+											"pm.response.to.have.status(200);\r",
+											"\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"id": "dc96e90a-8f44-4583-8cb8-b20103d49226"
+									}
+								}
+							],
+							"id": "a881eaba-99b3-4325-847b-1e32dccc54ba",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/octet-stream",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files",
+											"type": "file",
+											"src": "/C:/Users/Admin/Downloads/pdfresizer.com-pdf-rotate.pdf"
+										},
+										{
+											"key": "labels",
+											"value": "FMT",
+											"type": "default"
+										}
+									]
+								},
+								"url": "https://staging.sustainion.tech/api/admin/upload-files"
+							},
+							"response": []
+						}
+					],
+					"id": "24b56a8f-67a1-4164-aeef-73e4b5fcc694"
+				}
+			],
+			"id": "66b1d601-ca01-4684-8582-008537268bdd"
 		}
 	]
 }
