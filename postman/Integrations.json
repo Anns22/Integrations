@@ -10996,6 +10996,549 @@
 				}
 			],
 			"id": "7fbbe833-6b7f-4ae6-90c3-dbfbc17747d9"
+		},
+		{
+			"name": "Reports",
+			"item": [
+				{
+					"name": "Table list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the response JSON to extract the data array\r",
+									"const responseJson = pm.response.json();\r",
+									"const dataArray = responseJson.data;\r",
+									"\r",
+									"// Generate a random index to select a random data entry\r",
+									"const randomIndex = Math.floor(Math.random() * dataArray.length);\r",
+									"\r",
+									"// Get the label value at the random index\r",
+									"const randomLabelValue = dataArray[randomIndex].label;\r",
+									"\r",
+									"// Get the id value at the random index\r",
+									"const randomIdValue = dataArray[randomIndex].id;\r",
+									"\r",
+									"// Get the table_name value at the random index\r",
+									"const randomTableNameValue = dataArray[randomIndex].table_name;\r",
+									"\r",
+									"// Log the random label value, id, and table_name to the console\r",
+									"console.log(\"Random Label Value:\", randomLabelValue);\r",
+									"console.log(\"Random ID Value:\", randomIdValue);\r",
+									"console.log(\"Random Table Name Value:\", randomTableNameValue);\r",
+									"\r",
+									"// Set the random label value as a global environment variable\r",
+									"pm.globals.set(\"randomLabelVariable\", randomLabelValue);\r",
+									"\r",
+									"// Set the random id value as a global environment variable\r",
+									"pm.globals.set(\"randomIdVariable\", randomIdValue);\r",
+									"\r",
+									"// Set the random table_name value as a global environment variable\r",
+									"pm.globals.set(\"randomTableNameVariable\", randomTableNameValue);\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "4d8f8162-b978-4945-aa3b-586f20a6f0d0"
+							}
+						}
+					],
+					"id": "5d0e4cf0-8b97-4741-8584-e7d52fe5ac13",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-report}}reportbuilder/tablelist?export=1&order_by=asc",
+							"host": [
+								"{{url-report}}reportbuilder"
+							],
+							"path": [
+								"tablelist"
+							],
+							"query": [
+								{
+									"key": "export",
+									"value": "1"
+								},
+								{
+									"key": "order_by",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Get the value of the randomLabelVariable from globals\r",
+									"const randomLabelValue = pm.globals.get(\"randomLabelVariable\");\r",
+									"\r",
+									"// Generate a random name based on the randomLabelValue\r",
+									"function generateRandomName(label) {\r",
+									"    const randomNumber = Math.floor(Math.random() * 1000);\r",
+									"    return `${label}_Test_${randomNumber}`;\r",
+									"}\r",
+									"\r",
+									"// Call the function to generate a random name using the randomLabelValue\r",
+									"const randomTestName = generateRandomName(randomLabelValue);\r",
+									"\r",
+									"// Log the random name to the console\r",
+									"console.log(\"Random Test Name:\", randomTestName);\r",
+									"\r",
+									"// Set the random name as a global environment variable\r",
+									"pm.globals.set(\"randomTestNameVariable\", randomTestName);\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "efd4f7a5-d653-45ec-9cdb-fb90d09e6002"
+							}
+						}
+					],
+					"id": "29179ff3-0fc9-49b7-acfa-181f3f13881c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"name\": \"{{randomTestNameVariable}}\",\r\n        \"title\": \"Report\",\r\n        \"source_data\": {{randomIdVariable}},\r\n        \"start_date\": \"2023-01-01\",\r\n        \"end_date\": \"2023-08-30\",\r\n        \"output_type\": \"reports\",\r\n        \"content_json\": \"{\\\"key\\\": \\\"value\\\"}\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url-report}}/reportbuilder/reports"
+					},
+					"response": []
+				},
+				{
+					"name": "ListReport",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the response JSON to extract the data array\r",
+									"const responseJson = pm.response.json();\r",
+									"const dataArray = responseJson.data;\r",
+									"\r",
+									"// Sort the data array by report id in descending order\r",
+									"dataArray.sort((a, b) => b.id - a.id);\r",
+									"\r",
+									"// Get the latest report id value\r",
+									"const latestReportId = dataArray[0].id;\r",
+									"\r",
+									"// Log the latest report id to the console\r",
+									"console.log(\"Latest Report ID:\", latestReportId);\r",
+									"\r",
+									"// Set the latest report id as a global environment variable\r",
+									"pm.globals.set(\"latestReportIdVariable\", latestReportId);\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "30d4b305-5234-43d6-a6e7-5e8809f7a974"
+							}
+						}
+					],
+					"id": "113f3808-c908-4b13-831b-5100917f6d29",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-report}}reportbuilder/reports?order_by=desc",
+							"host": [
+								"{{url-report}}reportbuilder"
+							],
+							"path": [
+								"reports"
+							],
+							"query": [
+								{
+									"key": "order_by",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Get the random label value from the global environment variable\r",
+									"const randomLabelValue = pm.globals.get(\"randomLabelVariable\");\r",
+									"\r",
+									"// Generate a random name using the random label value\r",
+									"const randomName = `${randomLabelValue}_Name`;\r",
+									"\r",
+									"// Log the random name to the console\r",
+									"console.log(\"Random Name:\", randomName);\r",
+									"\r",
+									"// Set the random name as a global environment variable\r",
+									"pm.globals.set(\"randomNameVariable\", randomName);\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "a3df8b03-21db-442e-b71d-d74cc00d97de"
+							}
+						}
+					],
+					"id": "86263318-bf61-4010-9363-31e5170b0f7f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"id\":{{latestReportIdVariable}},\r\n    \"name\": \"{{randomNameVariable}}\",\r\n    \"source_data\": \"{{randomIdVariable}}\",\r\n    \"start_date\": \"2023-06-24\",\r\n    \"end_date\": \"2023-06-30\",\r\n    \"output_type\": \"PDF\",\r\n    \"content_json\": \"{\\\"key\\\": \\\"value\\\"}\"\r\n  }\r\n]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url-report}}reportbuilder/reports"
+					},
+					"response": []
+				},
+				{
+					"name": "Report list",
+					"id": "8dc17df1-09e9-42c1-a50e-030170c8c17f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-report}}reportbuilder/report_list?tablename={{randomTableNameVariable}}&limit=500000",
+							"host": [
+								"{{url-report}}reportbuilder"
+							],
+							"path": [
+								"report_list"
+							],
+							"query": [
+								{
+									"key": "tablename",
+									"value": "{{randomTableNameVariable}}"
+								},
+								{
+									"key": "limit",
+									"value": "500000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"id": "7bdf1aa0-a51f-4468-9233-8e95529db698",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n       {{latestReportIdVariable}}\r\n    ]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url-report}}reportbuilder/reports"
+					},
+					"response": []
+				}
+			],
+			"id": "7ea5fd15-416d-4538-ba23-7bf9c0a74747"
+		},
+		{
+			"name": "Page Builder Copy",
+			"item": [
+				{
+					"name": "List all modules",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the response JSON\r",
+									"const responseData = JSON.parse(responseBody);\r",
+									"\r",
+									"// Randomly select an index within the data array\r",
+									"const randomIndex = Math.floor(Math.random() * responseData.data.length);\r",
+									"\r",
+									"// Extract id and name from the randomly selected data\r",
+									"const randomId = responseData.data[randomIndex].id;\r",
+									"const randomName = responseData.data[randomIndex].name;\r",
+									"\r",
+									"// Set the environment variables\r",
+									"pm.environment.set(\"randomGlobalId\", randomId);\r",
+									"pm.environment.set(\"randomGlobalName\", randomName);\r",
+									"\r",
+									"// Log the values to the console\r",
+									"console.log(\"Randomly Selected ID:\", randomId);\r",
+									"console.log(\"Randomly Selected Name:\", randomName);\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "0ffacfa4-4afa-4c25-8c68-fdd8851d1598"
+							}
+						}
+					],
+					"id": "79d58875-59de-48da-8bb8-bfc2f19e32ae",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/pagebuilder/modules_list"
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Get the value of the environment variable \"randomGlobalName\"\r",
+									"const randomGlobalName = pm.environment.get(\"randomGlobalName\");\r",
+									"\r",
+									"// Function to generate a random string of characters\r",
+									"function generateRandomString(length) {\r",
+									"    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';\r",
+									"    let result = '';\r",
+									"    for (let i = 0; i < length; i++) {\r",
+									"        result += characters.charAt(Math.floor(Math.random() * characters.length));\r",
+									"    }\r",
+									"    return result;\r",
+									"}\r",
+									"\r",
+									"// Generate a new random name using the extracted name as a prefix\r",
+									"const generatedName = randomGlobalName + \"_\" + generateRandomString(5);\r",
+									"\r",
+									"// Set the environment variable with the generated name\r",
+									"pm.globals.set(\"generatedName\", generatedName);\r",
+									"\r",
+									"// Log the generated name to the console\r",
+									"console.log(\"Generated Name:\", generatedName);\r",
+									"\r",
+									"// List of meaningful words for generating titles\r",
+									"const words = [\r",
+									"    \"Adventure\",\r",
+									"    \"Journey\",\r",
+									"    \"Discovery\",\r",
+									"    \"Exploration\",\r",
+									"    \"Innovation\",\r",
+									"    \"Creativity\",\r",
+									"    \"Inspiration\",\r",
+									"    \"Dreams\",\r",
+									"    \"Solutions\",\r",
+									"    \"Success\",\r",
+									"    \"Achievement\",\r",
+									"    \"Reflection\",\r",
+									"    \"Harmony\",\r",
+									"    \"Elegance\",\r",
+									"    \"Wonder\",\r",
+									"    \"Magic\",\r",
+									"    \"Brilliance\"\r",
+									"];\r",
+									"\r",
+									"// Function to generate a random index\r",
+									"function getRandomIndex(max) {\r",
+									"    return Math.floor(Math.random() * max);\r",
+									"}\r",
+									"\r",
+									"// Generate a random meaningful title\r",
+									"const randomTitle = `${words[getRandomIndex(words.length)]} of ${words[getRandomIndex(words.length)]}`;\r",
+									"\r",
+									"// Set the environment variable with the generated title\r",
+									"pm.globals.set(\"genTitle\", randomTitle);\r",
+									"\r",
+									"// Log the generated title to the console\r",
+									"console.log(\"Generated Meaningful Title:\", randomTitle);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "98656b7b-22e1-4af5-abe1-72fcc5149dee"
+							}
+						}
+					],
+					"id": "893fefa2-1c9a-4652-b605-4ff4631d7206",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"name\": \"{{generatedName}}\",\r\n        \"title\": \"{{genTitle}}\",\r\n        \"module_id\": {{randomGlobalId}},\r\n        \"content\": null\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/pagebuilder/pages_submit"
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the response JSON\r",
+									"const responseData = JSON.parse(responseBody);\r",
+									"\r",
+									"// Extract the \"id\" field from the response data\r",
+									"const id = responseData.data[0].id;\r",
+									"\r",
+									"// Set the global variable with the extracted \"id\"\r",
+									"pm.globals.set(\"pagebuildId\", id);\r",
+									"\r",
+									"// Log the extracted \"id\" to the console\r",
+									"console.log(\"pagebuild  ID:\", id);\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "59b86691-1ba1-4fd6-9d12-31e2501b60b6"
+							}
+						}
+					],
+					"id": "c0035b64-149e-4237-8dd1-3da06fc4dbf6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/pagebuilder/pages_list?order_by=desc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pagebuilder",
+								"pages_list"
+							],
+							"query": [
+								{
+									"key": "order_by",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"id": "898b818c-d2aa-4448-907e-6a6d2293c42b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": {{pagebuildId}},\r\n        \"name\": \"{{{{generatedName}}}}\",\r\n        \"title\": \"{{genTitle}}\",\r\n        \"content\": \"{}\",\r\n        \"module_id\": {{randomGlobalId}}\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/pagebuilder/pages_submit"
+					},
+					"response": []
+				},
+				{
+					"name": "View single report",
+					"id": "cdf3015c-b0c6-4dc8-86e4-26cc50b31e8a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/pagebuilder/pages_list?id={{pagebuildId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pagebuilder",
+								"pages_list"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{pagebuildId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"id": "c8ccdb90-1bf3-4e05-9077-783982416010",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"page_ids\":[{{pagebuildId}}]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/pagebuilder/pages_submit"
+					},
+					"response": []
+				}
+			],
+			"id": "84928da8-80bf-4c0d-9b66-23fce48ec927"
 		}
 	]
 }
