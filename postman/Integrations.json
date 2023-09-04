@@ -12398,7 +12398,35 @@
 					"id": "24b56a8f-67a1-4164-aeef-73e4b5fcc694"
 				}
 			],
-			"id": "66b1d601-ca01-4684-8582-008537268bdd"
+			"id": "66b1d601-ca01-4684-8582-008537268bdd",
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "{{refresh_token}}"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "40049d34-3d1e-4fe6-b3b7-e5195fe54145",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3dc655e2-9414-4cd8-ae87-043bf050c6ba",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		}
 	]
 }
